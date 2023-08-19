@@ -2,23 +2,8 @@ import styles from './index.module.scss';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
-
-export default function Home() {
-    return (
-        <>
-            <Head>
-                <title>To-do App</title>
-                <meta name="description" content="Developed by Imamul Hassan" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <main className={styles.main}>
-                <Link href="create" className={styles.main}>
-                    Create New To-do
-                </Link>
-            </main>
-        </>
-    );
-}
+import type { NextPageWithLayout } from './_app';
+import HomepageLayout from '@/components/layouts/homepage/layout';
 
 // function AuthShowcase() {
 //     const { data: sessionData } = useSession();
@@ -40,3 +25,26 @@ export default function Home() {
 //         </div>
 //     );
 // }
+
+const Home: NextPageWithLayout = () => {
+    return (
+        <>
+            <Head>
+                <title>To-do App</title>
+                <meta name="description" content="Developed by Imamul Hassan" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className={styles.main}>
+                <Link href="create" className={styles.main}>
+                    Create New To-do
+                </Link>
+            </main>
+        </>
+    );
+};
+
+Home.getLayout = (page: React.ReactElement) => {
+    return <HomepageLayout>{page}</HomepageLayout>;
+};
+
+export default Home;
