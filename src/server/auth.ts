@@ -1,7 +1,7 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { type GetServerSidePropsContext } from 'next';
 import { getServerSession, type NextAuthOptions, type DefaultSession } from 'next-auth';
-import DiscordProvider from 'next-auth/providers/discord';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { env } from '@/env.mjs';
 import { prisma } from '@/server/db';
 
@@ -32,6 +32,9 @@ declare module 'next-auth' {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+    pages: {
+        signIn: '/signin',
+    },
     callbacks: {
         session: ({ session, user }) => ({
             ...session,
@@ -43,9 +46,21 @@ export const authOptions: NextAuthOptions = {
     },
     adapter: PrismaAdapter(prisma),
     providers: [
-        DiscordProvider({
-            clientId: env.DISCORD_CLIENT_ID,
-            clientSecret: env.DISCORD_CLIENT_SECRET,
+        CredentialsProvider({
+            name: 'Credentials',
+            credentials: {
+                email: { label: 'Email', type: 'email', placeholder: 'jsmith@email.com' },
+                password: { label: 'Password', type: 'password' },
+            },
+            authorize(credentials, req) {
+                const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com', password: '12345' };
+
+                if (user.email === credentials?.email && user.password === credentials.password) {
+                    return user;
+                } else {
+                    return null;
+                }
+            },
         }),
         /**
          * ...add more providers here.
