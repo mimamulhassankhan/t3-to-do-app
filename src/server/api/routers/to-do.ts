@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { createTRPCRouter, publicProcedure } from '../trpc';
+import { TRPCError } from '@trpc/server';
 
 export const todoRouter = createTRPCRouter({
     createTodo: publicProcedure
@@ -13,6 +14,20 @@ export const todoRouter = createTRPCRouter({
                 console.error(err);
             }
         }),
+
+    getById: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+        try {
+            const todo = await ctx.prisma.todo.findUnique({
+                where: {
+                    id: input.id,
+                },
+            });
+            return todo;
+        } catch (err) {
+            console.error(err);
+            throw new TRPCError({ code: 'BAD_REQUEST', message: 'Something went wrong' });
+        }
+    }),
 
     getAll: publicProcedure.query(({ ctx }) => {
         return ctx.prisma.todo.findMany();

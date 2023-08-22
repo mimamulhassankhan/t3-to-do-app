@@ -5,6 +5,7 @@ import { api } from '@/utils/api';
 import '@/styles/globals.scss';
 import type { NextPage } from 'next';
 import type { ReactElement, ReactNode } from 'react';
+import { TodoProvider } from '@/contexts/todo.context';
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -17,7 +18,11 @@ type AppPropsWithLayout = AppType & {
 
 const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) => {
     const getLayout = Component.getLayout ?? ((page) => page);
-    return <SessionProvider session={session}>{getLayout(<Component {...pageProps} />)}</SessionProvider>;
+    return (
+        <SessionProvider session={session}>
+            <TodoProvider>{getLayout(<Component {...pageProps} />)}</TodoProvider>
+        </SessionProvider>
+    );
 };
 
 export default api.withTRPC(MyApp);
