@@ -67,6 +67,6 @@ model VerificationToken {
 
 model Todo {
     id          String @id @default(cuid())
-    title       String?
-    description String?
+    title       String
+    description String
 }
