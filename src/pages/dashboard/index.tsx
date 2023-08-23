@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { NextPageWithLayout } from '../_app';
 import DashboardLayout from '@/components/layouts/dashboard/layout';
 import TodoList from '@/components/to-do/list';
@@ -9,14 +9,25 @@ import { type Todo } from '@prisma/client';
 import { useTodoContext } from '@/contexts/todo.context';
 
 const UserDashboard: NextPageWithLayout = () => {
-    const { todoAction } = useTodoContext();
-    const { data: todos, isLoading } = api.todo.getAll.useQuery();
-    const { mutate, isSuccess } = api.todo.deleteById.useMutation();
+    const {
+        todoStore: { todos },
+        todoAction,
+    } = useTodoContext();
+    const { data, isLoading } = api.todo.getAll.useQuery();
+    const { mutateAsync } = api.todo.deleteById.useMutation();
 
     function handleDelete(id: Todo['id']) {
-        mutate({ id });
-        if (isSuccess) todoAction({ type: 'DELETE_TODO', payload: id });
+        mutateAsync({ id })
+            .then((res) => {
+                console.log({ res });
+                todoAction({ type: 'DELETE_TODO', payload: id });
+            })
+            .catch((err) => console.error(err));
     }
+
+    useEffect(() => {
+        if (data) todoAction({ type: 'ADD_ALL', payload: data ?? [] });
+    }, [data, todoAction]);
 
     if (!todos || isLoading) {
         return <p>Loading to-do list...</p>;

@@ -3,6 +3,7 @@ import React, { createContext, useReducer, useContext, type PropsWithChildren } 
 import { set } from 'lodash';
 
 type Action =
+    | { type: 'ADD_ALL'; payload: Todo[] }
     | { type: 'ADD_TODO'; payload: Todo }
     | { type: 'UPDATE_TODO'; payload: Todo }
     | { type: 'DELETE_TODO'; payload: Todo['id'] }
@@ -34,6 +35,8 @@ const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 const todoReducer = (state: State, action: Action): State => {
     switch (action.type) {
+        case 'ADD_ALL':
+            return { ...state, todos: action.payload };
         case 'ADD_TODO':
             return { ...state, todos: [...state.todos, action.payload] };
         case 'UPDATE_TODO':

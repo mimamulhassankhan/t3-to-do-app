@@ -19,7 +19,17 @@ function AuthShowcase() {
                 {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
                 {/* {secretMessage && <span> - {secretMessage}</span>} */}
             </p>
-            <button className={styles.loginButton} onClick={sessionData ? () => void signOut() : () => void signIn()}>
+            <button
+                className={styles.loginButton}
+                onClick={
+                    sessionData
+                        ? () => void signOut()
+                        : () =>
+                              void signIn('credentials', {
+                                  callbackUrl: '/dashboard',
+                              })
+                }
+            >
                 {sessionData ? 'Sign out' : 'Sign in'}
             </button>
         </div>

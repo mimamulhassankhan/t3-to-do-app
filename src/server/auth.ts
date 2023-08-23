@@ -36,13 +36,14 @@ export const authOptions: NextAuthOptions = {
         signIn: '/signin',
     },
     callbacks: {
-        session: ({ session, user }) => ({
-            ...session,
-            user: {
-                ...session.user,
-                id: user.id,
-            },
-        }),
+        jwt: ({ token, user }) => {
+            user && (token.user = user);
+            return token;
+        },
+        session: ({ session, token }) => {
+            console.log({ session });
+            return { ...session, user: token };
+        },
     },
     adapter: PrismaAdapter(prisma),
     providers: [
@@ -72,6 +73,10 @@ export const authOptions: NextAuthOptions = {
          * @see https://next-auth.js.org/providers/github
          */
     ],
+    secret: '%$$$SecRET$$$%',
+    session: {
+        strategy: 'jwt',
+    },
 };
 
 /**
