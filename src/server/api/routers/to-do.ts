@@ -34,8 +34,8 @@ export const todoRouter = createTRPCRouter({
     }),
 
     deleteById: publicProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
-        const res = await ctx.prisma.todo.delete({ where: { id: input.id } })
-        if (res) return { success: true }
-        return { success: false }
-    })
+        const res = await ctx.prisma.todo.delete({ where: { id: input.id } });
+        if (res) return { success: true };
+        return { success: false };
+    }),
 });
