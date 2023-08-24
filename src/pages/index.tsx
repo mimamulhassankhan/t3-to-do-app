@@ -4,8 +4,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { NextPageWithLayout } from './_app';
 import HomepageLayout from '@/components/layouts/homepage/layout';
+import { useRouter } from 'next/router';
 
 function AuthShowcase() {
+    const router = useRouter();
     const { data: sessionData } = useSession();
 
     // const { data: secretMessage } = api.example.getSecretMessage.useQuery(
@@ -31,6 +33,13 @@ function AuthShowcase() {
                 }
             >
                 {sessionData ? 'Sign out' : 'Sign in'}
+            </button>
+            <button
+                className={styles.loginButton}
+                hidden={Boolean(sessionData)}
+                onClick={() => void router.push('/signup')}
+            >
+                Sign Up
             </button>
         </div>
     );

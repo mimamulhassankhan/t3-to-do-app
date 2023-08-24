@@ -4,6 +4,10 @@ import { getServerSession, type NextAuthOptions, type DefaultSession } from 'nex
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { env } from '@/env.mjs';
 import { prisma } from '@/server/db';
+import type UserRoles from '@/utils/roles';
+type ValueOfMap<M extends Map<unknown, unknown>> = M extends Map<unknown, infer K> ? K : never
+
+
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -15,15 +19,9 @@ declare module 'next-auth' {
     interface Session extends DefaultSession {
         user: DefaultSession['user'] & {
             id: string;
-            // ...other properties
-            // role: UserRole;
+            role: ValueOfMap<typeof UserRoles>;
         };
     }
-
-    // interface User {
-    //   // ...other properties
-    //   // role: UserRole;
-    // }
 }
 
 /**
@@ -34,6 +32,7 @@ declare module 'next-auth' {
 export const authOptions: NextAuthOptions = {
     pages: {
         signIn: '/signin',
+
     },
     callbacks: {
         jwt: ({ token, user }) => {
