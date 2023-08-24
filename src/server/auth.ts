@@ -17,6 +17,7 @@ declare module 'next-auth' {
             id: string;
             // ...other properties
             // role: UserRole;
+            accessToken?: string;
         };
     }
 
@@ -36,10 +37,6 @@ export const authOptions: NextAuthOptions = {
         signIn: '/signin',
     },
     callbacks: {
-        jwt: ({ token, user }) => {
-            user && (token.user = user);
-            return token;
-        },
         session: ({ session, token }) => {
             return { ...session, user: token };
         },
@@ -72,9 +69,10 @@ export const authOptions: NextAuthOptions = {
          * @see https://next-auth.js.org/providers/github
          */
     ],
-    secret: '%$$$SecRET$$$%',
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: 'jwt',
+        maxAge: 30 * 1000 * 60,
     },
 };
 
