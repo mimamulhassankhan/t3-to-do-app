@@ -1,41 +1,42 @@
 import { z } from 'zod';
 import { createTRPCRouter, publicProcedure } from '../trpc';
-import { TRPCError } from '@trpc/server';
+
+const z_Todo = z.object({
+    id: z
+        .string()
+        .min(4, "Please enter a valid value")
+        .optional()
+        .or(z.literal('')),
+    title: z.string().min(5).max(15),
+    description: z.string().min(10).max(20)
+})
 
 export const todoRouter = createTRPCRouter({
     createTodo: publicProcedure
-        .input(z.object({ title: z.string().min(5).max(15), description: z.string().min(10).max(20) }))
-        .mutation(async ({ ctx, input }) => {
-            try {
-                const created = await ctx.prisma.todo.create({ data: input });
-                console.log({ created });
-                return { hello: 'hellod' };
-            } catch (err) {
-                console.error(err);
-            }
+        .input(z_Todo)
+        .mutation(({ ctx, input }) => {
+            return ctx.prisma.todo.create({ data: input });
         }),
 
-    getById: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
-        try {
-            const todo = await ctx.prisma.todo.findUnique({
-                where: {
-                    id: input.id,
-                },
-            });
-            return todo;
-        } catch (err) {
-            console.error(err);
-            throw new TRPCError({ code: 'BAD_REQUEST', message: 'Something went wrong' });
-        }
+    getById: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.todo.findUnique({
+            where: {
+                id: input.id,
+            },
+        });
+
     }),
 
     getAll: publicProcedure.query(({ ctx }) => {
         return ctx.prisma.todo.findMany();
     }),
 
-    deleteById: publicProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
-        const res = await ctx.prisma.todo.delete({ where: { id: input.id } });
-        if (res) return { success: true };
-        return { success: false };
+    update: publicProcedure.input(z_Todo).mutation(({ ctx, input: { id, ...todo } }) => {
+        return ctx.prisma.todo.update({ where: { id }, data: todo })
+    }),
+
+    deleteById: publicProcedure.input(z.object({ id: z.string() })).mutation(({ ctx, input }) => {
+        return ctx.prisma.todo.delete({ where: { id: input.id } });
+
     }),
 });

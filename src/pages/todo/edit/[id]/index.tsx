@@ -12,25 +12,26 @@ export interface TodoEditPageProps {
 }
 
 const TodoEditPage: NextPageWithLayout = () => {
+    const router = useRouter();
     const { todoAction } = useTodoContext();
     const { query } = useRouter();
     const { data: todo, isLoading } = api.todo.getById.useQuery({ id: String(query?.id) });
+    const { mutateAsync } = api.todo.update.useMutation();
+
+    function handleSubmit(todo: Todo) {
+        mutateAsync(todo)
+            .then(() => {
+                todoAction({ type: 'RESET_TODO_FORM' });
+                void router.replace('/dashboard');
+            })
+            .catch((err) => console.error(err));
+    }
 
     useEffect(() => {
         if (todo) todoAction({ type: 'SET_SELECTED', payload: todo });
     }, [todo, todoAction]);
 
-    return isLoading ? (
-        <h1>Loading.....</h1>
-    ) : (
-        <TodoForm
-            handleSubmit={async (todo) => {
-                console.log({ todo });
-                return Promise.resolve();
-            }}
-            edit
-        />
-    );
+    return isLoading ? <h1>Loading.....</h1> : <TodoForm handleSubmit={handleSubmit} edit />;
 };
 
 TodoEditPage.getLayout = function getLaout(page: React.ReactElement) {

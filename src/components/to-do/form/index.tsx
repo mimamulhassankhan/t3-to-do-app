@@ -4,7 +4,7 @@ import { useTodoContext } from '@/contexts/todo.context';
 import { type Todo } from '@prisma/client';
 
 export interface TodoFormProps {
-    handleSubmit: (todo: Todo) => Promise<void>;
+    handleSubmit: (todo: Todo) => void;
     edit?: boolean;
 }
 
@@ -21,17 +21,8 @@ const TodoForm = ({ handleSubmit, edit = false }: TodoFormProps) => {
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (!handleSubmit) return;
-        handleSubmit(todo)
-            .then(() => {
-                console.log('creted');
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-        // .finally(() => dispatch({ type: 'RESET' }));
+        handleSubmit(todo);
     }
-
-    console.log({ selected: todo });
 
     return (
         <div className={styles.container}>

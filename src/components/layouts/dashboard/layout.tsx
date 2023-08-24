@@ -9,10 +9,8 @@ const DashboardLayout: NextPageWithLayout<DashboardLayoutProps> = ({ children })
     return (
         <div className={styles.container}>
             <aside className={styles.sidebar}>Sidebar</aside>
-            <div className={styles.content}>
-                <header className={styles.topbar}>Topbar</header>
-                <main className={styles.main}>{children}</main>
-            </div>
+            <header className={styles.topbar}>Topbar</header>
+            <main className={styles.main}>{children}</main>
         </div>
     );
 };

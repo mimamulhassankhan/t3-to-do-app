@@ -8,7 +8,8 @@ type Action =
     | { type: 'UPDATE_TODO'; payload: Todo }
     | { type: 'DELETE_TODO'; payload: Todo['id'] }
     | { type: 'UPDATE_FIELD'; payload: { name: string; value: string | number } }
-    | { type: 'SET_SELECTED'; payload: Todo };
+    | { type: 'SET_SELECTED'; payload: Todo }
+    | { type: 'RESET_TODO_FORM' };
 
 interface State {
     todos: Todo[];
@@ -27,6 +28,9 @@ const initialState = (id?: Todo['id']): State => {
             id: id ?? '',
             title: '',
             description: '',
+            done: false,
+            createdAt: null,
+            updatedAt: null,
         },
     };
 };
@@ -50,6 +54,8 @@ const todoReducer = (state: State, action: Action): State => {
             return { ...state, selected };
         case 'SET_SELECTED':
             return { ...state, selected: action.payload };
+        case 'RESET_TODO_FORM':
+            return { ...state, selected: initialState().selected };
         default:
             return state;
     }
