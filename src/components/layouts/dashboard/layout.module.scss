@@ -2,8 +2,9 @@
     display: grid;
     grid-template-columns: 250px 1fr;
     grid-template-rows: 70px 1fr;
-    grid-template-areas: "sidebar topbar"
-        "sidebar content";
+    grid-template-areas:
+        'sidebar topbar'
+        'sidebar content';
     min-height: 100vh;
     min-height: 100dvh;
 }
