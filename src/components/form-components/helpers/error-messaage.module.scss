@@ -1,0 +1,54 @@
+@use '@/styles/tools/addFlex';
+@use '@/styles/tools/mediaQuery';
+
+.error-message {
+    background-color: #a70000;
+    margin-top: 2px;
+    width: 100%;
+    min-height: 26px;
+    padding-left: 21px;
+    padding-right: 3px;
+    @include addFlex.flex-container($ai: center);
+    gap: 11px;
+
+    &__icon {
+        width: 19px;
+        height: 19px;
+        @include mediaQuery.devices(mobile) {
+            width: 16px;
+            height: 16px;
+        }
+        font-family: var(--font-family-noto-sans-jp);
+        font-size: 14px;
+        @include mediaQuery.devices(mobile) {
+            font-size: 11px;
+            line-height: 1.55;
+        }
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        border-radius: 50%;
+        border: 1px solid white;
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__text {
+        font-family: var(--font-family-noto-sans-jp);
+        font-size: 14px;
+        @include mediaQuery.devices(mobile) {
+            font-size: 12px;
+            line-height: 1.33;
+        }
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        color: var(--white);
+    }
+}

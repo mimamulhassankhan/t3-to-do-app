@@ -1,6 +1,4 @@
 import { withAuth } from 'next-auth/middleware';
-import { getServerAuthSession } from './server/auth';
-import { getSession } from 'next-auth/react';
 import { NextResponse } from 'next/server';
 
 export default withAuth(

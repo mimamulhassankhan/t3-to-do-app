@@ -5,19 +5,13 @@ import Link from 'next/link';
 import type { NextPageWithLayout } from './_app';
 import HomepageLayout from '@/components/layouts/homepage/layout';
 
-function AuthShowcase() {
+export function AuthShowcase() {
     const { data: sessionData } = useSession();
-
-    // const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    //     undefined, // no input
-    //     { enabled: sessionData?.user !== undefined }
-    // );
 
     return (
         <div className={styles.authContainer}>
             <p className={styles.showcaseText}>
-                {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-                {/* {secretMessage && <span> - {secretMessage}</span>} */}
+                {sessionData && <Link href={`/dashboard`}>Logged in as {sessionData.user?.name}</Link>}
             </p>
             <button
                 className={styles.loginButton}
@@ -32,6 +26,9 @@ function AuthShowcase() {
             >
                 {sessionData ? 'Sign out' : 'Sign in'}
             </button>
+            <Link href={`/signup`} hidden={Boolean(sessionData)}>
+                Sign Up
+            </Link>
         </div>
     );
 }
@@ -45,10 +42,7 @@ const Home: NextPageWithLayout = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={styles.main}>
-                <AuthShowcase />
-                {/* <Link href="login" className={styles.main}>
-                    Get Started
-                </Link> */}
+                <h1>Welcome to My Website</h1>
             </main>
         </>
     );
