@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 const z_Todo = z.object({
     id: z.string().min(4, 'Please enter a valid value').optional().or(z.literal('')),
@@ -8,7 +8,8 @@ const z_Todo = z.object({
 });
 
 export const todoRouter = createTRPCRouter({
-    createTodo: publicProcedure.input(z_Todo).mutation(({ ctx, input }) => {
+    createTodo: protectedProcedure.input(z_Todo).mutation(({ ctx, input }) => {
+        console.log(ctx.session.user);
         return ctx.prisma.todo.create({ data: input });
     }),
 
