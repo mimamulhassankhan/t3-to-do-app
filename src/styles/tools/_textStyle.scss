@@ -46,36 +46,30 @@
     font-weight: var(--font-weight-regular);
 }
 
-@mixin text-style($style: 'md', $weight: null, $lineHeight: null, $letterSpacing: null, $textTransform: null, $textDecoration: null, $color: var(--black)) {
-    @if $style =='xxs' {
+@mixin text-style(
+    $style: 'md',
+    $weight: null,
+    $lineHeight: null,
+    $letterSpacing: null,
+    $textTransform: null,
+    $textDecoration: null,
+    $color: var(--black)
+) {
+    @if $style == 'xxs' {
         @extend .text-xxs;
-    }
-
-    @else if $style =='xs' {
+    } @else if $style == 'xs' {
         @extend .text-xs;
-    }
-
-    @else if $style =='sm' {
+    } @else if $style == 'sm' {
         @extend .text-sm;
-    }
-
-    @else if $style =='md' {
+    } @else if $style == 'md' {
         @extend .text-md;
-    }
-
-    @else if $style =='lg' {
+    } @else if $style == 'lg' {
         @extend .text-lg;
-    }
-
-    @else if $style =='xl' {
+    } @else if $style == 'xl' {
         @extend .text-xl;
-    }
-
-    @else if $style =='xxl' {
+    } @else if $style == 'xxl' {
         @extend .text-xxl;
-    }
-
-    @else if $style =='xxxl' {
+    } @else if $style == 'xxxl' {
         @extend .text-xxxl;
     }
 

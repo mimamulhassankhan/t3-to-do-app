@@ -6,12 +6,7 @@ const AuthLayout = ({ children }: PropsWithChildren) => {
     return (
         <div className={styles.authLayout}>
             <div className={styles.imageColumn}>
-                <Image
-                    src="images\login_page\login_left.svg"
-                    alt="Placeholder Image"
-                    className={styles.image}
-                    fill
-                />
+                <Image src="images\login_page\login_left.svg" alt="Placeholder Image" className={styles.image} fill />
             </div>
             <div className={styles.formColumn}>{children}</div>
         </div>

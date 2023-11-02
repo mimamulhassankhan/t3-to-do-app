@@ -16,11 +16,10 @@ a {
 ul {
     list-style: none;
 
-    &>li::before {
+    & > li::before {
         content: '';
     }
 }
-
 
 h1,
 h2,

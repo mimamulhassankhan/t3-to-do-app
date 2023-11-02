@@ -1,6 +1,8 @@
 @font-face {
     font-family: 'Poppins';
-    src: local('Poppins Regular'), local('Poppins-Regular'),
+    src:
+        local('Poppins Regular'),
+        local('Poppins-Regular'),
         url('/fonts/poppins/Poppins-Regular.woff2') format('woff2'),
         url('/fonts/poppins/Poppins-Regular.woff') format('woff'),
         url('/fonts/poppins/Poppins-Regular.ttf') format('truetype');
@@ -53,5 +55,4 @@
     --text-decoration-overline: overline;
     --text-decoration-line-through: line-through;
     --text-decoration-none: none;
-
 }

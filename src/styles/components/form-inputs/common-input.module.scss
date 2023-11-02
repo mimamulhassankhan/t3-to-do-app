@@ -1,4 +1,4 @@
-@use "@/styles/tools/textStyle" as font;
+@use '@/styles/tools/textStyle' as font;
 
 .wrapper {
     .label {
@@ -18,10 +18,10 @@
 
         &:focus-visible {
             outline: none;
-            border-bottom: 2px solid #FF432A;
+            border-bottom: 2px solid #ff432a;
 
             &::placeholder {
-                @include font.text-style('md', $color: #FF432A);
+                @include font.text-style('md', $color: #ff432a);
             }
         }
     }
