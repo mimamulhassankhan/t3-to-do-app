@@ -1,12 +1,9 @@
-import React, { type HTMLInputTypeAttribute, useState } from 'react';
+import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import eyeOff from '@/public/icons/eye-slash.svg';
-import eyeOn from '@/public/icons/eye-open.svg';
 import ErrorMessage from '../helpers/error-message';
-import './input-field.module.scss';
+import styles from '@/styles/components/form-inputs/common-input.module.scss';
 
 export interface InputFieldProps extends React.HTMLProps<HTMLInputElement> {
-    type: HTMLInputTypeAttribute;
     name: string;
     onInput: React.FormEventHandler<HTMLInputElement>;
     formError?: string;
@@ -17,6 +14,7 @@ export interface InputFieldProps extends React.HTMLProps<HTMLInputElement> {
 }
 
 function InputField({
+    label,
     required,
     type,
     name,
@@ -43,29 +41,30 @@ function InputField({
     }
 
     return (
-        <div className="input-field">
-            <div className="input-field__parent">
-                <input
-                    name={name}
-                    type={type === 'password' ? (eyeAllowed && eyeOpen ? 'text' : type) : type}
-                    placeholder={placeholder}
-                    className={`input-field__input ${formError && 'input-field__input--error'}`}
-                    value={value}
-                    onInput={handleChange}
-                    maxLength={maxLength}
-                    onBlur={onBlur}
-                    onError={onError}
-                    required={required}
-                />
-                {type === 'password' && eyeAllowed && (
-                    <div className="input-field__parent__eye-img" onClick={() => setEyeOpen(!eyeOpen)}>
-                        <Image
+        <div className={styles.wrapper}>
+            <label className={styles.label}>{label}</label>
+            <input
+                name={name}
+                type={type === 'password' ? (eyeAllowed && eyeOpen ? 'text' : type) : type}
+                placeholder={placeholder}
+                className={styles.field}
+                value={value}
+                onInput={handleChange}
+                maxLength={maxLength}
+                onBlur={onBlur}
+                onError={onError}
+                required={required}
+                autoComplete="off"
+                aria-autocomplete="none"
+            />
+            {type === 'password' && eyeAllowed && (
+                <div className="input-field__parent__eye-img" onClick={() => setEyeOpen(!eyeOpen)}>
+                    {/* <Image
                             src={eyeOpen ? (eyeOn as StaticImageData) : (eyeOff as StaticImageData)}
                             alt={alt ?? ''}
-                        />
-                    </div>
-                )}
-            </div>
+                        /> */}
+                </div>
+            )}
             {formError && !errorShowOff && <ErrorMessage message={formError} />}
         </div>
     );

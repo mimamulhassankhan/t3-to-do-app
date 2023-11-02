@@ -1,0 +1,28 @@
+@use "@/styles/tools/textStyle" as font;
+
+.wrapper {
+    .label {
+        @include font.text-style('md');
+    }
+
+    .field {
+        all: unset;
+        margin-top: 10px;
+        width: 100%;
+        border-bottom: 2px solid var(--black);
+        @include font.text-style('md');
+
+        &::placeholder {
+            @include font.text-style('md');
+        }
+
+        &:focus-visible {
+            outline: none;
+            border-bottom: 2px solid #FF432A;
+
+            &::placeholder {
+                @include font.text-style('md', $color: #FF432A);
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+.text-xxs {
+    font-family: var(--font-family);
+    font-size: var(--font-size-xxs);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-xs {
+    font-family: var(--font-family);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-sm {
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-md {
+    font-family: var(--font-family);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-lg {
+    font-family: var(--font-family);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-xl {
+    font-family: var(--font-family);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-xxl {
+    font-family: var(--font-family);
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-regular);
+}
+
+.text-xxxl {
+    font-family: var(--font-family);
+    font-size: var(--font-size-xxxl);
+    font-weight: var(--font-weight-regular);
+}
+
+@mixin text-style($style: 'md', $weight: null, $lineHeight: null, $letterSpacing: null, $textTransform: null, $textDecoration: null, $color: var(--black)) {
+    @if $style =='xxs' {
+        @extend .text-xxs;
+    }
+
+    @else if $style =='xs' {
+        @extend .text-xs;
+    }
+
+    @else if $style =='sm' {
+        @extend .text-sm;
+    }
+
+    @else if $style =='md' {
+        @extend .text-md;
+    }
+
+    @else if $style =='lg' {
+        @extend .text-lg;
+    }
+
+    @else if $style =='xl' {
+        @extend .text-xl;
+    }
+
+    @else if $style =='xxl' {
+        @extend .text-xxl;
+    }
+
+    @else if $style =='xxxl' {
+        @extend .text-xxxl;
+    }
+
+    @if $weight !=null {
+        font-weight: $weight;
+    }
+
+    @if $lineHeight !=null {
+        line-height: $lineHeight;
+    }
+
+    @if $letterSpacing !=null {
+        letter-spacing: $letterSpacing;
+    }
+
+    @if $textTransform !=null {
+        text-transform: $textTransform;
+    }
+
+    @if $textDecoration !=null {
+        text-decoration: $textDecoration;
+    }
+
+    color: $color;
+}

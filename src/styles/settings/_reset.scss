@@ -1,20 +1,26 @@
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 ul {
     list-style: none;
 
-    & > li::before {
+    &>li::before {
         content: '';
     }
 }
 
-html {
-    scroll-behavior: smooth;
-}
 
 h1,
 h2,

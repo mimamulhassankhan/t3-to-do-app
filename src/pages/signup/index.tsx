@@ -1,7 +1,8 @@
 import RegistrationForm from '@/components/form-components/auth/registration-form';
+import AuthLayout from '@/components/layouts/auth/layout';
 import { type NextPageWithLayout } from '../_app';
 
-const RegisterPage: NextPageWithLayout = () => {
+const UserRegistrationPage: NextPageWithLayout = () => {
     return (
         <div>
             <h1>User Registration</h1>
@@ -10,4 +11,8 @@ const RegisterPage: NextPageWithLayout = () => {
     );
 };
 
-export default RegisterPage;
+UserRegistrationPage.getLayout = function getLayout(page: React.ReactElement) {
+    return <AuthLayout>{page}</AuthLayout>;
+};
+
+export default UserRegistrationPage;

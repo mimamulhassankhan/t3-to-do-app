@@ -1,0 +1,24 @@
+@use "@/styles/tools/textStyle" as font;
+
+.form {
+    .title {
+        @include font.text-style('xxxl', $weight: 500);
+    }
+
+    .no_account_message {
+        padding-top: 20px;
+        @include font.text-style('md');
+    }
+
+    .registration_message {
+        @include font.text-style('md');
+
+        .registration_link {
+            @include font.text-style('md', $color: var(--negative));
+        }
+    }
+
+    .email_wrapper {
+        margin-top: 50px;
+    }
+}
