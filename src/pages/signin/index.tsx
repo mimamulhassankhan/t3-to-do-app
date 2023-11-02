@@ -4,8 +4,8 @@ import { getCsrfToken } from 'next-auth/react';
 import { useRef } from 'react';
 import { type NextPageWithLayout } from '../_app';
 import AuthLayout from '@/components/layouts/auth/layout';
-import styles from '@/styles/auth/components/login-form/login-form.module.scss';
 import Link from 'next/link';
+import styles from '@/styles/auth/components/login-form/login-form.module.scss';
 
 const SignInPage: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ csrfToken }) => {
     const loginFormFieldsRef = useRef({
@@ -13,7 +13,6 @@ const SignInPage: NextPageWithLayout<InferGetServerSidePropsType<typeof getServe
         password: '',
     });
 
-    console.log;
     return (
         <form className={styles.form} method="post" action="/api/auth/callback/credentials">
             <h1 className={styles.title}>Sign in</h1>
@@ -25,7 +24,7 @@ const SignInPage: NextPageWithLayout<InferGetServerSidePropsType<typeof getServe
                 </Link>
             </p>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-            <div className={styles.email_wrapper}>
+            <div className={styles.field_wrapper}>
                 <InputField
                     label="Email"
                     name="email"
@@ -33,13 +32,27 @@ const SignInPage: NextPageWithLayout<InferGetServerSidePropsType<typeof getServe
                         loginFormFieldsRef.current.email = e.currentTarget.value;
                     }}
                     placeholder="Enter your email address"
+                    autoComplete="off"
+                    aria-autocomplete="none"
                 />
             </div>
-            <label>
-                Password
-                <input name="password" type="password" required />
-            </label>
-            <button type="submit">Sign in</button>
+            <div className={styles.field_wrapper}>
+                <InputField
+                    label="Password"
+                    name="password"
+                    type="password"
+                    onInput={(e) => {
+                        loginFormFieldsRef.current.password = e.currentTarget.value;
+                    }}
+                    placeholder="Enter your Password"
+                    autoComplete="off"
+                    aria-autocomplete="none"
+                />
+            </div>
+
+            <button className={styles.submit_button} type="submit">
+                Login
+            </button>
         </form>
     );
 };

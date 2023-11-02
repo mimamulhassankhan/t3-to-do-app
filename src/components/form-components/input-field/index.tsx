@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import ErrorMessage from '../helpers/error-message';
 import styles from '@/styles/components/form-inputs/common-input.module.scss';
@@ -29,7 +29,9 @@ function InputField({
     eyeAllowed,
     onError,
     alt,
+    ...rest
 }: InputFieldProps) {
+    const isPasswordField = useMemo(() => type === 'password', [type]);
     const [eyeOpen, setEyeOpen] = useState(false);
 
     function handleChange(e: React.FormEvent<HTMLInputElement>) {
@@ -44,18 +46,17 @@ function InputField({
         <div className={styles.wrapper}>
             <label className={styles.label}>{label}</label>
             <input
+                {...rest}
                 name={name}
-                type={type === 'password' ? (eyeAllowed && eyeOpen ? 'text' : type) : type}
+                type={isPasswordField ? (eyeAllowed && eyeOpen ? 'text' : type) : type}
                 placeholder={placeholder}
-                className={styles.field}
+                className={[styles.field, isPasswordField ? styles.field__password : ''].join(' ')}
                 value={value}
                 onInput={handleChange}
                 maxLength={maxLength}
                 onBlur={onBlur}
                 onError={onError}
                 required={required}
-                autoComplete="off"
-                aria-autocomplete="none"
             />
             {type === 'password' && eyeAllowed && (
                 <div className="input-field__parent__eye-img" onClick={() => setEyeOpen(!eyeOpen)}>
