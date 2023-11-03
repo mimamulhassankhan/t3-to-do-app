@@ -1,0 +1,34 @@
+@use '@/styles/tools/textStyle' as font;
+@use '@/styles/tools/addFlex' as flex;
+
+.wrapper {
+    @include flex.flex-container($ai: center);
+
+    .field {
+        accent-color: #FF432A;
+        width: 15px;
+        height: 15px;
+        border: 1px solid var(--black);
+
+        &:checked {
+            background-color: #FF432A;
+        }
+
+        &__error {
+            border: 1px solid #ff432a;
+        }
+    }
+
+    .label {
+        @include font.text-style('xs', $weight: 300);
+        margin-left: 10px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+}
+
+.error_message {
+    @include font.text-style('xxs', $color: var(--negative));
+    margin-top: 5px;
+}

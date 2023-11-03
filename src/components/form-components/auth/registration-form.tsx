@@ -1,6 +1,9 @@
 import React, { useReducer } from 'react';
-import styles from '@/styles/auth/registration-form.module.scss';
+import styles from '@/styles/auth/user-registration.module.scss';
 import { api } from '@/utils/api';
+import InputField from '../input-field';
+import CheckBox from '../check-box';
+import { signIn } from 'next-auth/react';
 
 type FormState = {
     name: string;
@@ -105,62 +108,82 @@ const RegistrationForm = () => {
     }
 
     return (
-        <div className={styles.registrationForm}>
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div className={styles.formGroup}>
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        type="text"
+        <div className={styles.form_container}>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
+                <h1 className={styles.title}>Sign up</h1>
+                <p className={styles.alredy_member_message}>If you already have an account register</p>
+                <p className={styles.login_message}>
+                    <span>You can </span>
+                    <button
+                        type="button"
+                        className={styles.login_link}
+                        onClick={() =>
+                            void signIn('credentials', {
+                                callbackUrl: '/dashboard',
+                            })
+                        }
+                    >
+                        Login here !
+                    </button>
+                </p>
+                <div className={styles.field_wrapper}>
+                    <InputField
+                        required
+                        label="Name"
+                        placeholder="Enter your name"
                         name="name"
                         value={formData.name}
-                        onChange={(e) => handleChange('name', e.target.value)}
+                        onInput={(e) => handleChange('name', e.currentTarget.value)}
+                        formError={formErrors.name}
                     />
-                    {formErrors.name && <span className={styles.error}>{formErrors.name}</span>}
                 </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
+                <div className={styles.field_wrapper}>
+                    <InputField
+                        required
+                        label="Email"
+                        placeholder="Enter your email address"
                         name="email"
                         value={formData.email}
-                        onChange={(e) => handleChange('email', e.target.value)}
+                        onInput={(e) => handleChange('email', e.currentTarget.value)}
+                        formError={formErrors.email}
                     />
-                    {formErrors.email && <span className={styles.error}>{formErrors.email}</span>}
                 </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="password">Password:</label>
-                    <input
+                <div className={styles.field_wrapper}>
+                    <InputField
+                        required
                         type="password"
+                        label="Password"
+                        placeholder="Enter your Password"
                         name="password"
                         value={formData.password}
-                        onChange={(e) => handleChange('password', e.target.value)}
+                        onInput={(e) => handleChange('password', e.currentTarget.value)}
+                        formError={formErrors.password}
                     />
-                    {formErrors.password && <span className={styles.error}>{formErrors.password}</span>}
                 </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
+                <div className={styles.field_wrapper}>
+                    <InputField
+                        required
                         type="password"
+                        label="Confrim Password"
+                        placeholder="Confrim your Password"
                         name="confirmPassword"
                         value={formData.confirmPassword}
-                        onChange={(e) => handleChange('confirmPassword', e.target.value)}
+                        onChange={(e) => handleChange('confirmPassword', e.currentTarget.value)}
                         onInput={handleRepeatPassword}
+                        formError={formErrors.confirmPassword}
                     />
-                    {formErrors.confirmPassword && <span className={styles.error}>{formErrors.confirmPassword}</span>}
                 </div>
-                <div className={styles.formGroup}>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={formData.privacyPolicy}
-                            onChange={() => handleChange('privacyPolicy', !formData.privacyPolicy)}
-                        />
-                        I agree to the privacy policy
-                    </label>
-                    {formErrors.privacyPolicy && <span className={styles.error}>{formErrors.privacyPolicy}</span>}
+                <div className={styles.field_wrapper}>
+                    <CheckBox
+                        required
+                        label="I agree to the privacy policy"
+                        name="privacyPolicy"
+                        checked={formData.privacyPolicy}
+                        onChange={() => handleChange('privacyPolicy', !formData.privacyPolicy)}
+                        error={formErrors.privacyPolicy}
+                    />
                 </div>
-                <button type="submit" className={styles.submitButton}>
+                <button type="submit" className={styles.submit_btn}>
                     Register
                 </button>
             </form>

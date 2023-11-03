@@ -1,5 +1,5 @@
 import React from 'react';
-import './error-messaage.module.scss';
+import styles from './error-messaage.module.scss';
 
 export interface ErrorMessageProps {
     message: string;
@@ -7,9 +7,9 @@ export interface ErrorMessageProps {
 
 function ErrorMessage({ message }: ErrorMessageProps) {
     return (
-        <div className="error-message">
-            <span className="error-message__icon">！</span>
-            <div className="error-message__text">{message}</div>
+        <div className={styles.wrapper}>
+            <span className={styles.icon}>！</span>
+            <div className={styles.text}>{message}</div>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useId, useMemo, useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import ErrorMessage from '../helpers/error-message';
 import styles from '@/styles/components/form-inputs/common-input.module.scss';
@@ -31,7 +31,22 @@ function InputField({
     alt,
     ...rest
 }: InputFieldProps) {
+    const inputId = useId();
     const isPasswordField = useMemo(() => type === 'password', [type]);
+    const leftAdornmentIcon = useMemo(() => {
+        switch (name) {
+            case 'email':
+                return 'field__email';
+            case 'password':
+                return 'field__password';
+            case 'confirmPassword':
+                return 'field__password';
+            case 'name':
+                return 'field__name';
+            default:
+                return '';
+        }
+    }, [name]);
     const [eyeOpen, setEyeOpen] = useState(false);
 
     function handleChange(e: React.FormEvent<HTMLInputElement>) {
@@ -44,13 +59,16 @@ function InputField({
 
     return (
         <div className={styles.wrapper}>
-            <label className={styles.label}>{label}</label>
+            <label htmlFor={inputId} className={styles.label}>
+                {label}
+            </label>
             <input
                 {...rest}
+                id={inputId}
                 name={name}
                 type={isPasswordField ? (eyeAllowed && eyeOpen ? 'text' : type) : type}
                 placeholder={placeholder}
-                className={[styles.field, isPasswordField ? styles.field__password : ''].join(' ')}
+                className={[styles.field, styles[leftAdornmentIcon]].join(' ')}
                 value={value}
                 onInput={handleChange}
                 maxLength={maxLength}

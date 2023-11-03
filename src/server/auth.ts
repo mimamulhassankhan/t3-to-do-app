@@ -1,12 +1,13 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { type GetServerSidePropsContext } from 'next';
 import { getServerSession, type NextAuthOptions, type DefaultSession } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
 import { env } from '@/env.mjs';
 import { prisma } from '@/server/db';
 import type UserRoles from '@/utils/roles';
 type ValueOfMap<M extends Map<unknown, unknown>> = M extends Map<unknown, infer K> ? K : never;
 
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google";
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -56,6 +57,10 @@ export const authOptions: NextAuthOptions = {
                 }
             },
         }),
+        GoogleProvider({
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+        })
         /**
          * ...add more providers here.
          *

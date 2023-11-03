@@ -1,4 +1,5 @@
 @use '@/styles/tools/textStyle' as font;
+@use '@/styles/tools/addFlex' as flex;
 
 .form {
     .title {
@@ -22,15 +23,25 @@
         margin-top: 50px;
     }
 
+    .remember_me_forgot_password_wrapper {
+        margin-top: 15px;
+        @include flex.flex-container($jc: space-between, $ai: center);
+
+        .forgot_password_link {
+            @include font.text-style('xs', $color: var(--negative));
+        }
+    }
+
     .submit_button {
         all: unset;
         margin-top: 60px;
         @include font.text-style('lg', $color: var(--white));
         width: 100%;
         text-align: center;
-        border-radius: 32px;
+        border-radius: 30px;
         background-color: #FF432A;
         padding: 15px 0;
-        box-shadow: 0px 4px 26px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.25);
     }
+
 }

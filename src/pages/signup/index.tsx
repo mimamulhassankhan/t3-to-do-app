@@ -3,12 +3,7 @@ import AuthLayout from '@/components/layouts/auth/layout';
 import { type NextPageWithLayout } from '../_app';
 
 const UserRegistrationPage: NextPageWithLayout = () => {
-    return (
-        <div>
-            <h1>User Registration</h1>
-            <RegistrationForm />
-        </div>
-    );
+    return <RegistrationForm />;
 };
 
 UserRegistrationPage.getLayout = function getLayout(page: React.ReactElement) {

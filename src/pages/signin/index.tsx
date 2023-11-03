@@ -1,11 +1,13 @@
 import InputField from '@/components/form-components/input-field';
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import { getCsrfToken } from 'next-auth/react';
+import { getCsrfToken, signIn } from 'next-auth/react';
 import { useRef } from 'react';
 import { type NextPageWithLayout } from '../_app';
 import AuthLayout from '@/components/layouts/auth/layout';
 import Link from 'next/link';
 import styles from '@/styles/auth/components/login-form/login-form.module.scss';
+import Image from 'next/image';
+import CheckBox from '@/components/form-components/check-box';
 
 const SignInPage: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ csrfToken }) => {
     const loginFormFieldsRef = useRef({
@@ -48,6 +50,12 @@ const SignInPage: NextPageWithLayout<InferGetServerSidePropsType<typeof getServe
                     autoComplete="off"
                     aria-autocomplete="none"
                 />
+            </div>
+            <div className={styles.remember_me_forgot_password_wrapper}>
+                <CheckBox label="Remember me" name="remember_me" />
+                <Link href="/forgot-password" className={styles.forgot_password_link}>
+                    Forgot password?
+                </Link>
             </div>
 
             <button className={styles.submit_button} type="submit">
