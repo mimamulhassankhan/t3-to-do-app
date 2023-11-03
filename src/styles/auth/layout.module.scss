@@ -29,7 +29,7 @@
         .continue_text {
             width: 100%;
             text-align: center;
-            @include font.text-style('md', $color: #B5B5B5, $weight: 500);
+            @include font.text-style('md', $color: #b5b5b5, $weight: 500);
             margin-top: 40px;
         }
 

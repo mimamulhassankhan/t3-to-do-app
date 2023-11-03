@@ -1,42 +1,30 @@
-@mixin text-style($style: 'md',
+@mixin text-style(
+    $style: 'md',
     $weight: null,
     $lineHeight: null,
     $letterSpacing: null,
     $textTransform: null,
     $textDecoration: null,
-    $color: var(--black)) {
+    $color: var(--black)
+) {
     font-family: var(--font-family);
     font-weight: var(--font-weight-regular);
 
-    @if $style =='xxs' {
+    @if $style == 'xxs' {
         font-size: var(--font-size-xxs);
-    }
-
-    @else if $style =='xs' {
+    } @else if $style == 'xs' {
         font-size: var(--font-size-xs);
-    }
-
-    @else if $style =='sm' {
+    } @else if $style == 'sm' {
         font-size: var(--font-size-sm);
-    }
-
-    @else if $style =='md' {
+    } @else if $style == 'md' {
         font-size: var(--font-size-md);
-    }
-
-    @else if $style =='lg' {
+    } @else if $style == 'lg' {
         font-size: var(--font-size-lg);
-    }
-
-    @else if $style =='xl' {
+    } @else if $style == 'xl' {
         font-size: var(--font-size-xl);
-    }
-
-    @else if $style =='xxl' {
+    } @else if $style == 'xxl' {
         font-size: var(--font-size-xxl);
-    }
-
-    @else if $style =='xxxl' {
+    } @else if $style == 'xxxl' {
         font-size: var(--font-size-xxxl);
     }
 

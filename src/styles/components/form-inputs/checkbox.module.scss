@@ -5,13 +5,13 @@
     @include flex.flex-container($ai: center);
 
     .field {
-        accent-color: #FF432A;
+        accent-color: #ff432a;
         width: 15px;
         height: 15px;
         border: 1px solid var(--black);
 
         &:checked {
-            background-color: #FF432A;
+            background-color: #ff432a;
         }
 
         &__error {
@@ -25,7 +25,6 @@
         cursor: pointer;
         user-select: none;
     }
-
 }
 
 .error_message {
