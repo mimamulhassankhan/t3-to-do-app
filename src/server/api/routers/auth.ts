@@ -25,12 +25,11 @@ export const authRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ ctx, input }) => {
-            // use bycrpt to hash the password
             const pass = await hash(input.password, 10);
-
             return ctx.prisma.user.create({
                 data: {
-                    ...input,
+                    email: input.email,
+                    name: input.name,
                     accounts: {
                         create: [
                             {
@@ -41,17 +40,17 @@ export const authRouter = createTRPCRouter({
                             },
                         ],
                     },
-                    sessions: {
-                        create: [
-                            {
-                                ...ctx.session,
-                                expires: Date.parse(ctx.session?.expires ?? '')
-                                    ? new Date(ctx.session?.expires ?? '')
-                                    : new Date(),
-                                sessionToken: ctx.session?.user.accessToken ?? '',
-                            },
-                        ],
-                    },
+                    // sessions: {
+                    //     create: [
+                    //         {
+                    //             ...ctx.session,
+                    //             expires: Date.parse(ctx.session?.expires ?? '')
+                    //                 ? new Date(ctx.session?.expires ?? '')
+                    //                 : new Date(),
+                    //             sessionToken: ctx.session?.user.accessToken ?? '',
+                    //         },
+                    //     ],
+                    // },
                 },
                 include: {
                     sessions: true,
