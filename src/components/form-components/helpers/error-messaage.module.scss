@@ -1,0 +1,8 @@
+@use '@/styles/tools/addFlex';
+@use '@/styles/tools/mediaQuery';
+@use '@/styles/tools/textStyle' as font;
+
+.wrapper {
+    @include font.text-style('xs', $color: var(--negative));
+    @include addFlex.flex-container($ai: center);
+}

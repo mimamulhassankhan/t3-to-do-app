@@ -1,0 +1,52 @@
+@mixin text-style(
+    $style: 'md',
+    $weight: null,
+    $lineHeight: null,
+    $letterSpacing: null,
+    $textTransform: null,
+    $textDecoration: null,
+    $color: var(--black)
+) {
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-regular);
+
+    @if $style == 'xxs' {
+        font-size: var(--font-size-xxs);
+    } @else if $style == 'xs' {
+        font-size: var(--font-size-xs);
+    } @else if $style == 'sm' {
+        font-size: var(--font-size-sm);
+    } @else if $style == 'md' {
+        font-size: var(--font-size-md);
+    } @else if $style == 'lg' {
+        font-size: var(--font-size-lg);
+    } @else if $style == 'xl' {
+        font-size: var(--font-size-xl);
+    } @else if $style == 'xxl' {
+        font-size: var(--font-size-xxl);
+    } @else if $style == 'xxxl' {
+        font-size: var(--font-size-xxxl);
+    }
+
+    @if $weight !=null {
+        font-weight: $weight;
+    }
+
+    @if $lineHeight !=null {
+        line-height: $lineHeight;
+    }
+
+    @if $letterSpacing !=null {
+        letter-spacing: $letterSpacing;
+    }
+
+    @if $textTransform !=null {
+        text-transform: $textTransform;
+    }
+
+    @if $textDecoration !=null {
+        text-decoration: $textDecoration;
+    }
+
+    color: $color;
+}

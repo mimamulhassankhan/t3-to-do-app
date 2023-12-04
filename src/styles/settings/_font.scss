@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Poppins';
+    src:
+        local('Poppins Regular'),
+        local('Poppins-Regular'),
+        url('/fonts/poppins/Poppins-Regular.woff2') format('woff2'),
+        url('/fonts/poppins/Poppins-Regular.woff') format('woff'),
+        url('/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    // declare font variables
+    --font-family: 'Poppins', sans-serif;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --font-weight-extra-bold: 800;
+    --font-weight-black: 900;
+
+    // declare font size variables
+    --font-size-xxs: 0.625rem;
+    --font-size-xs: 12px;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 16px;
+    --font-size-lg: 17px;
+    --font-size-xl: 1.25rem;
+    --font-size-xxl: 1.5rem;
+    --font-size-xxxl: 30px;
+
+    // declare line height variables
+    --line-height-xs: 1.25;
+    --line-height-sm: 1.375;
+    --line-height-md: 1.5;
+    --line-height-lg: 1.625;
+    --line-height-xl: 1.75;
+    --line-height-xxl: 1.875;
+
+    // declare letter spacing variables
+    --letter-spacing-xs: 0.05em;
+    --letter-spacing-sm: 0.075em;
+    --letter-spacing-md: 0.1em;
+    --letter-spacing-lg: 0.125em;
+    --letter-spacing-xl: 0.15em;
+    --letter-spacing-xxl: 0.2em;
+
+    // declare text transform variables
+    --text-transform-uppercase: uppercase;
+    --text-transform-lowercase: lowercase;
+
+    // declare text decoration variables
+    --text-decoration-underline: underline;
+    --text-decoration-overline: overline;
+    --text-decoration-line-through: line-through;
+    --text-decoration-none: none;
+}

@@ -1,0 +1,34 @@
+@use '@/styles/tools/textStyle' as font;
+
+.wrapper {
+    .label {
+        @include font.text-style('md');
+    }
+
+    .field {
+        @include font.text-style('md');
+        margin-top: 10px;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid var(--black);
+        background: url('/images/login_page/email_icon.svg') no-repeat center left;
+        padding-left: 25px;
+
+        &::placeholder {
+            @include font.text-style('md');
+        }
+
+        &:focus-visible {
+            outline: none;
+            border-bottom: 2px solid #ff432a;
+        }
+
+        &__password {
+            background: url('/images/login_page/password_icon.svg') no-repeat center left;
+        }
+
+        &__name {
+            background: url('/images/login_page/user_icon.svg') no-repeat center left;
+        }
+    }
+}
